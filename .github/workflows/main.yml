@@ -1,10 +1,10 @@
-name: dev
+name: development
 
 on: [push]
 
 jobs:
   run_worksheet:
-    environment: dev
+    environment: development
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v0.1')
     name: Run Worksheet
