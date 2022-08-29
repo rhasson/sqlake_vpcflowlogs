@@ -1,0 +1,22 @@
+name: dev
+
+on: [push]
+
+jobs:
+  run_worksheet:
+    environment: dev
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/dev')
+    name: Run Worksheet
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run Worksheet
+        uses: rhasson/sqlake_action@main
+        id: run_step
+        with:
+          worksheet_path: src
+          api_key: ${{ secrets.API_KEY }}
+      - name: Print Results
+        run: |
+          cat ${GITHUB_WORKSPACE}/worksheet_output.md >> $GITHUB_STEP_SUMMARY
