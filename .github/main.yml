@@ -3,9 +3,7 @@ on: [push]
 jobs:
   run_worksheet:
     name: Run Worksheet
-    environment: development
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v0.1')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
