@@ -1,5 +1,6 @@
 
 /* Create read-only connection to S3 data source */
+drop connection royon_s3_conn;
 create s3 connection royon_s3_conn
     aws_role = 'arn:aws:iam::433987883887:role/royon_ro_role'
     external_id = 'ROYON'
@@ -7,6 +8,7 @@ create s3 connection royon_s3_conn
 ;
 
 /* create staging table in the Glue data catalog */
+drop table default_glue_catalog.royon.vpcflowlogs_staging_tbl;
 create table default_glue_catalog.royon.vpcflowlogs_staging_tbl
 partitioned by $event_date;
 
