@@ -1,6 +1,6 @@
 
 /* Create read-only connection to S3 data source */
-drop connection royon_s3_conn;
+--drop connection royon_s3_conn;
 create s3 connection royon_s3_conn
     aws_role = 'arn:aws:iam::433987883887:role/royon_ro_role'
     external_id = 'ROYON'
@@ -8,8 +8,8 @@ create s3 connection royon_s3_conn
 ;
 
 /* create staging table in the Glue data catalog */
-drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl;
-create table default_glue_catalog.royon.vpcflowlogs_staging_tbl;
+-- drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl DELETE_DATA=TRUE;
+create table default_glue_catalog.royon.vpcflowlogs_staging_tbl();
 
 /* create ingestion job to stage the S3 data in Glue table */
 create job royon_staging_vpc_flowlogs
@@ -22,5 +22,5 @@ create job royon_staging_vpc_flowlogs
 
 -- clean up previous version of the resources
 drop job royon_stage_vpc_flowlogs;
-drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl;
+drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl DELETE_DATA=TRUE;
 drop connection royon_s3_conn;
