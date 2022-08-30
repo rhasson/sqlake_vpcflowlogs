@@ -1,3 +1,7 @@
+-- pre-clean
+drop table default_glue_catalog.royon.vpcflowlogs_staging_tbl DELETE_DATA=TRUE;
+drop connection royon_s3_conn;
+
 
 /* Create read-only connection to S3 data source */
 create s3 connection royon_s3_conn
@@ -23,5 +27,5 @@ create job royon_staging_vpc_flowlogs
 
 /* clean up previous version of the resources */
 drop job royon_staging_vpc_flowlogs;
-drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl DELETE_DATA=TRUE;
+drop table default_glue_catalog.royon.vpcflowlogs_staging_tbl DELETE_DATA=TRUE;
 drop connection royon_s3_conn;
