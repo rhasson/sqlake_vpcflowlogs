@@ -1,5 +1,5 @@
 
-/* clean up previous version of the resources */
+-- clean up previous version of the resources
 drop job royon_stage_vpc_flowlogs;
 drop table default_glue_catalog.royon.vpcflowlogs_stage_tbl;
 drop s3 connection royon_s3_conn;
