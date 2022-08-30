@@ -6,6 +6,12 @@ on:
 
 jobs:
   run_worksheet:
+<<<<<<< HEAD
+=======
+    environment: development
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v0.1')
+>>>>>>> 104bc54ab13bc0caa2f714fb4fe51652d6dde8a0
     name: Run Worksheet
     environment:
       name: development
