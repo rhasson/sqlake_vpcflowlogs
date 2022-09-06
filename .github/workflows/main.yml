@@ -5,8 +5,8 @@ on:
     branches: [main, dev]
 
 jobs:
-  run_worksheet:
-    name: Run Worksheet
+  execute_sql:
+    name: Execute SQL
     environment:
       name: development
     if: github.event.ref == 'refs/heads/dev'
@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Run Worksheet
+      - name: Execute command
         uses: rhasson/sqlake_action@main
         with:
           worksheet_path: src
