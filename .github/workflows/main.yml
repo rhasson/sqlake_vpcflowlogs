@@ -19,9 +19,12 @@ jobs:
       - name: Get changed files
         id: cf-step
         uses: tj-actions/changed-files@v29.0.7
+        with:
+          files: |
+            src/**
       - name: List all added files
         run: |
-          for file in ${{ steps.cf-step.outputs.added_files }}; do
+          for file in ${{ steps.cf-step.outputs.all_changed_files }}; do
             echo "$file was added"
           done
       
