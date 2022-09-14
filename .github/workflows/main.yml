@@ -19,12 +19,17 @@ jobs:
       - name: Get changed files
         id: cf-step
         uses: tj-actions/changed-files@v29.0.7
-      
-      - name: Execute command
-        uses: rhasson/sqlake_action@main
-        with:
-          path_to_sql: ${{ steps.changed-files.outputs.added_files }}
-          api_key: ${{ secrets.API_KEY }}
-      - name: Print Results
+      - name: List all added files
         run: |
-          cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
+          for file in ${{ steps.changed-files.outputs.added_files }}; do
+            echo "$file was added"
+          done
+      
+#      - name: Execute command
+#        uses: rhasson/sqlake_action@main
+#        with:
+#          path_to_sql: ${{ steps.changed-files.outputs.added_files }}
+#          api_key: ${{ secrets.API_KEY }}
+#      - name: Print Results
+#        run: |
+#          cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
