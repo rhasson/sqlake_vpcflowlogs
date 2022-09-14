@@ -2,22 +2,28 @@ name: development
 
 on:
   push:
-    branches: [main, dev]
+    branches: [changedfiles]
 
 jobs:
   execute_sql:
     name: Execute SQL
     environment:
       name: development
-    if: github.event.ref == 'refs/heads/dev'
+    if: github.event.ref == 'refs/heads/changedfiles'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed files
+        id: cf-step
+        uses: tj-actions/changed-files@v29.0.7
+      
       - name: Execute command
         uses: rhasson/sqlake_action@main
         with:
-          path_to_sql: src
+          path_to_sql: ${{ steps.changed-files.outputs.added_files }}
           api_key: ${{ secrets.API_KEY }}
       - name: Print Results
         run: |
