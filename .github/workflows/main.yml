@@ -9,7 +9,11 @@ jobs:
     name: Execute SQL
     environment:
       name: development
-    if: github.event.ref == 'refs/heads/changedfiles'
+    defaults:
+      path-to-sql: src
+      upsolver-api-key: ${{ secrets.API_KEY }}
+      branch-name: changedfiles
+    if: github.event.ref == 'refs/heads/${{ defaults.branch-name }}'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,14 +24,20 @@ jobs:
         id: cf-step
         uses: tj-actions/changed-files@v29.0.7
         with:
+          separator: ","
           files: |
-            src/**
+            ${{ defaults.path-to-sql }}/*.sql
       - name: List all added files
         run: |
           for file in ${{ steps.cf-step.outputs.all_changed_files }}; do
             echo "$file was added"
           done
-      
+#      - name: Execute changed or added files
+#        uses: rhasson/sqlake_action@main
+#        with:
+#           file_list: ${{ steps.cf-step.outputs.all_changed_files }}
+#           api_key: ${{ secrets.API_KEY }}
+        
 #      - name: Execute command
 #        uses: rhasson/sqlake_action@main
 #        with:
