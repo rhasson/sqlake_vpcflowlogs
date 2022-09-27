@@ -22,7 +22,7 @@ jobs:
         with:
           separator: ","
           files: |
-            src/*.sql
+            **.sql
       - name: List all added files
         run: |
           for file in ${{ steps.cf-step.outputs.all_changed_files }}; do
