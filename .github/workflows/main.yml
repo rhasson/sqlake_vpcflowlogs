@@ -35,6 +35,7 @@ jobs:
         with:
            file_list: ${{ steps.cf-step.outputs.all_changed_files }}
            api_key: ${{ secrets.API_KEY }}
+           api_endpoint: 'https://api-d7591eb0-371d-4708-a393-6be41a770722.upsolver.com'
 ## executes every SQL file in order from the given directory
 ## comment this out and uncomment previous step if you want to only execute changed/added files
 #      - name: Execute all SQL
@@ -42,6 +43,7 @@ jobs:
 #        with:
 #          path_to_sql: src/
 #          api_key: ${{ secrets.API_KEY }}
+#          api_endpoint: 'https://api-d7591eb0-371d-4708-a393-6be41a770722.upsolver.com'
       - name: Print Results
         run: |
           cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
