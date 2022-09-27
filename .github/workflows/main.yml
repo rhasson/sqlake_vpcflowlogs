@@ -9,11 +9,7 @@ jobs:
     name: Execute SQL
     environment:
       name: development
-    defaults:
-      path-to-sql: src
-      upsolver-api-key: ${{ secrets.API_KEY }}
-      branch-name: changedfiles
-    if: github.event.ref == 'refs/heads/${{ defaults.branch-name }}'
+    if: github.event.ref == 'refs/heads/changedfiles'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,23 +22,26 @@ jobs:
         with:
           separator: ","
           files: |
-            ${{ defaults.path-to-sql }}/*.sql
+            src/*.sql
       - name: List all added files
         run: |
           for file in ${{ steps.cf-step.outputs.all_changed_files }}; do
             echo "$file was added"
           done
-#      - name: Execute changed or added files
+## execute only changed/added SQL files.
+## comment this step out and uncomment the next step if you want to execute every SQL
+      - name: Execute changed or added files
+        uses: rhasson/sqlake_action@main
+        with:
+           file_list: ${{ steps.cf-step.outputs.all_changed_files }}
+           api_key: ${{ secrets.API_KEY }}
+## executes every SQL file in order from the given directory
+## comment this out and uncomment previous step if you want to only execute changed/added files
+#      - name: Execute all SQL
 #        uses: rhasson/sqlake_action@main
 #        with:
-#           file_list: ${{ steps.cf-step.outputs.all_changed_files }}
-#           api_key: ${{ secrets.API_KEY }}
-        
-#      - name: Execute command
-#        uses: rhasson/sqlake_action@main
-#        with:
-#          path_to_sql: ${{ steps.changed-files.outputs.added_files }}
+#          path_to_sql: src/
 #          api_key: ${{ secrets.API_KEY }}
-#      - name: Print Results
-#        run: |
-#          cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
+      - name: Print Results
+        run: |
+          cat ${GITHUB_WORKSPACE}/execution_output.md >> $GITHUB_STEP_SUMMARY
