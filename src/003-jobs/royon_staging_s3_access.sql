@@ -4,4 +4,5 @@ create job royon_staging_s3_access
     bucket = 'dbxflowlogs3logging'
     prefix = '/'
   into default_glue_catalog.royon.s3access_staging_tbl
+  COMPUTE_CLUSTER = "Default Compute"
 ;
