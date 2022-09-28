@@ -1,3 +1,4 @@
-/* create staging table in the Glue data catalog */
+/* create staging table for vpc flow logs */
 create table default_glue_catalog.royon.vpcflowlogs_staging_tbl
-partitioned by $event_date;
+  partitioned by $event_date
+;
