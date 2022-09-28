@@ -35,7 +35,7 @@ jobs:
         with:
            file_list: ${{ steps.cf-step.outputs.all_changed_files }}
            api_key: ${{ secrets.API_KEY }}
-           api_endpoint: 'https://api-d7591eb0-371d-4708-a393-6be41a770722.upsolver.com'
+           api_endpoint: 'https://api.upsolver.com'
 ## executes every SQL file in order from the given directory
 ## comment this out and uncomment previous step if you want to only execute changed/added files
       # - name: Execute all SQL
