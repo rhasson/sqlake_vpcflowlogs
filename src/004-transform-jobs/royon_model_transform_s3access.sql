@@ -6,7 +6,7 @@ create job royon_model_transform_s3access
   compute_cluster = 'Default Compute'
   add_missing_columns = true
   start_from = NOW
-  as insert into default_glue_catalog.mei.s3_access_log_flattened MAP_COLUMNS_BY_NAME 
+  as insert into default_glue_catalog.royon.s3access_refined_tbl MAP_COLUMNS_BY_NAME 
     unnest (
         select
             matches[].bucketowner as bucket_owner_id,
@@ -27,7 +27,7 @@ create job royon_model_transform_s3access
             matches[].referer as referer,
             matches[].useragent as user_agent,
             matches[].versionid as version_id
-        from default_glue_catalog.mei.s3_access_log_staging
+        from default_glue_catalog.royon.s3access_staging_tbl
         where $commit_time between run_start_time() and run_end_time()
     )
 ;
