@@ -20,5 +20,4 @@ create table default_glue_catalog.royon.s3access_refined_tbl (
     version_id string
   )
   partitioned by request_time_utc
-COMPUTE_CLUSTER = 'Default Compute'
-;
+COMPUTE_CLUSTER = 'Default Compute';
